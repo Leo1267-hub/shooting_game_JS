@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>{{ title }}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='watch.css') }}">
+{% endblock %}
+
+{% block main_content %}
+
+<div class="layout">
+    <aside class="sidebar">
+        <nav>
+            <a href="{{ url_for('main') }}">Catalog <i class='bx bxs-watch'></i></a>
+            <a href="{{ url_for('profile') }}">Profile <i class='bx bx-user-circle'></i></a>
+            <a href="{{ url_for('basket') }}">Basket <i class='bx bx-basket'></i></a>
+            <a href="{{ url_for('favourite') }}">Favourite <i class='bx bxs-heart'></i></a>
+            <a href="{{ url_for('compare') }}">Compare <i class='bx bx-git-compare'></i></a>
+            <a href="{{ url_for('help_buyer') }}">Help <i class='bx bx-help-circle'></i></a>
+            <a href="{{ url_for('blocked_sellers') }}">Blocked Sellers <i class='bx bx-block'></i></a>
+        </nav>
+    </aside>
+
+    <main>
+        <h1>{{ watch['title'] }}</h1>
+
+        <div class="watch_container">
+            <figure class="watch_image">
+                <img src="{{ url_for('serve_image', id=watch['watch_id']) }}" alt="{{ watch['title'] }}" width="300"
+                    height="300">
+            </figure>
+
+            <div class="watch_info">
+                <p><strong>Price:</strong> {{ watch['price'] }}€</p>
+                <p><strong>Size:</strong> {{ watch['size'] }} mm</p>
+                <p><strong>Material:</strong> {{ watch['material'] }}</p>
+                <p><strong>Weight:</strong> {{ watch['weight'] }} grams</p>
+                <p><strong>Additional Details:</strong> {{ watch['description'] }}</p>
+                <p><strong>Seller:</strong> <a href="{{ url_for('seller_profile', user_id=watch['user_id']) }}">{{
+                        watch['user_id'] }}</a></p>
+
+                <div class="actions">
+                    <a class="btn" href="{{ url_for('compare_watch', watch_id=watch['watch_id']) }}">Compare</a>
+                    <a class="btn" href="{{ url_for('add_to_basket', watch_id=watch['watch_id']) }}">Add to Basket</a>
+                    <a class="btn" href="{{ url_for('add_to_favourite', watch_id=watch['watch_id']) }}">Add to
+                        Favourite</a>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<footer>
+    <p>&copy; All rights reserved</p>
+</footer>
+
+{% endblock %}

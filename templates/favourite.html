@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='favourite.css') }}">
+<title>{{ title }}</title>
+{% endblock %}
+
+{% block main_content %}
+
+<!-- code taken from here -->
+<!-- https://flask.palletsprojects.com/en/stable/patterns/flashing/ -->
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="alert">
+    {% for message in messages %}
+    <p>{{ message }}!</p>
+    {% endfor %}
+</div>
+{% endif %}
+{% endwith %}
+
+<div class="layout">
+    <aside class="sidebar">
+        <nav>
+            <a href="{{ url_for('main') }}">Catalog<i class='bx bxs-watch'></i></a>
+            <a href="{{ url_for('profile') }}">Profile<i class='bx bx-user-circle'></i></a>
+            <a href="{{ url_for('basket') }}">Basket<i class='bx bx-basket'></i></a>
+            <a href="{{ url_for('favourite') }}">Favourite<i class='bx bxs-heart'></i></a>
+            <a href="{{ url_for('compare') }}">Compare<i class='bx bx-git-compare'></i></a>
+            <a href="{{ url_for('help_buyer') }}">Help<i class='bx bx-help-circle'></i></a>
+            <a href="{{ url_for('blocked_sellers') }}">Blocked Sellers<i class='bx bx-block'></i> </a>
+        </nav>
+    </aside>
+
+    <main>
+        {% if favourite_that_exists %}
+        <div class="watch_grid">
+            {% for watch_id in favourite_that_exists %}
+            <div class="watch_card">
+
+                <img src="{{ url_for('serve_image', id=watch_id) }}" alt="watch image" class="watch_img">
+                <div class="watch_details">
+                    <h3 class="watch_title">
+                        <a href="{{ url_for('watch', watch_id=watch_id) }}">{{names[watch_id]['title']}}</a>
+                    </h3>
+                    <p class="seller">
+                        <a
+                            href="{{ url_for('seller_profile', user_id=names[watch_id]['seller']) }}">{{names[watch_id]['seller']}}</a>
+                    </p>
+                    <div class="link_group">
+                        <a href="{{url_for('add_to_basket',watch_id=watch_id)}}">Add To Basket</a>
+                        <a href="{{url_for('remove_from_favourite',watch_id=watch_id)}}">Remove</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="message"> You Have No Favourite Watches Right Now 😥</p>
+        {% endif %}
+    </main>
+</div>
+
+<footer>
+    <p>&copy; All rights reserved</p>
+</footer>
+{% endblock %}

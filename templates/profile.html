@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>{{ title }}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
+{% endblock %}
+
+{% block main_content %}
+<div class="layout">
+    <aside class="sidebar">
+        <nav>
+            <a href="{{ url_for('main') }}">Catalog<i class='bx bxs-watch'></i></a>
+            <a href="{{ url_for('profile') }}">Profile<i class='bx bx-user-circle'></i></a>
+            <a href="{{ url_for('basket') }}">Basket<i class='bx bx-basket'></i></a>
+            <a href="{{ url_for('favourite') }}">Favourite<i class='bx bxs-heart'></i></a>
+            <a href="{{ url_for('compare') }}">Compare<i class='bx bx-git-compare'></i></a>
+            <a href="{{ url_for('help_buyer') }}">Help<i class='bx bx-help-circle'></i></a>
+            <a href="{{ url_for('blocked_sellers') }}">Blocked Sellers<i class='bx bx-block'></i> </a>
+        </nav>
+    </aside>
+
+    <main>
+        <p class="budget_info">Your budget: <strong>{{ budget }}€</strong></p>
+        <h1>Edit Profile</h1>
+        <section class="form">
+            <form action="" method="post">
+                <h2>Edit Budget</h2>
+                {{ form_budget.hidden_tag() }}
+                {{form_budget.new_budget.label()}}
+                {{ form_budget.new_budget() }}
+                {% for error in form_budget.new_budget.errors %}
+                <p class="error">{{ error }}</p>
+                {% endfor %}
+                {{ form_budget.submit() }}
+            </form>
+
+            <form action="{{ url_for('change_password') }}" method="post">
+                <h2>Change Password</h2>
+                {{ form_password.hidden_tag() }}
+                {{ form_password.password_to_check.label() }}
+                {{ form_password.password_to_check() }}
+                {% for error in form_password.password_to_check.errors %}
+                <p class="error">{{ error }}</p>
+                {% endfor %}
+                {{ form_password.new_password.label() }}
+                {{ form_password.new_password() }}
+                {% for error in form_password.new_password.errors %}
+                <p class="error">{{ error }}</p>
+                {% endfor %}
+
+                {{ form_password.change() }}
+            </form>
+        </section>
+        {% if message %}
+        <p class="message">{{ message }}</p>
+        {% endif %}
+    </main>
+</div>
+
+<footer>
+    <p>&copy; All rights reserved</p>
+</footer>
+
+{% endblock %}

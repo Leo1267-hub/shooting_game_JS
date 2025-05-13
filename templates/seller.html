@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='seller.css') }}">
+<title>{{ title }}</title>
+{% endblock %}
+
+{% block main_content %}
+
+<div class="layout">
+
+    <main>
+        <div class="income">
+            <p><strong>Income:</strong> {{ income }}€</p>
+        </div>
+        <!-- enctype="multipart/form-data" part is taken from this website -->
+        <!-- https://www.geeksforgeeks.org/what-does-enctypemultipart-form-data-mean-in-an-html-form/ -->
+        <form class="sell_watch_form" action="" method="post" enctype="multipart/form-data">
+            <h1>Sell Watch</h1>
+            {{ form.hidden_tag() }}
+
+            <div class="form_group">
+                {{ form.title() }}
+                {% for error in form.title.errors %}
+                <p class="error">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="form_group">
+                {{ form.price() }}
+                {% for error in form.price.errors %}
+                <p class="error">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="form_group">
+                {{ form.size() }}
+                {% for error in form.size.errors %}
+                <p class="error">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="form_group">
+                {{ form.material() }}
+                {% for error in form.material.errors %}
+                <p class="error">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="form_group">
+                {{ form.weight() }}
+                {% for error in form.weight.errors %}
+                <p class="error">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="form_group">
+                {{ form.description() }}
+                {% for error in form.description.errors %}
+                <p class="error">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="form_group">
+                {{ form.quantity.label() }}
+                {{ form.quantity() }}
+                {% for error in form.quantity.errors %}
+                <p class="error">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="form_group">
+                {{ form.file.label() }}
+                {{ form.file() }}
+                {% for error in form.file.errors %}
+                <p class="error">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="form_group">
+                {{ form.submit() }}
+            </div>
+        </form>
+
+        <div class="watch_list">
+            <h1>Your Watches on Sale</h1>
+            {% if watches %}
+            <div class="watch_grid">
+                {% for watch in watches %}
+                <div class="watch_card">
+                    <a href="{{ url_for('watch', watch_id=watch['watch_id']) }}">
+
+                        <img src="{{ url_for('serve_image', id=watch['watch_id']) }}" alt="{{ watch['title'] }}"
+                            width="128" height="128">
+                    </a>
+                    <div class="watch_details">
+
+                        <h3>{{ watch['title'] }}</h3>
+
+                        <p><strong>Price:</strong> {{ watch['price'] }}€</p>
+
+
+                        <p><strong>Quantity:</strong> {{ watch['quantity'] }}</p>
+                        <p>{{ watch['description'] }}</p>
+                    </div>
+                    <div class="watch_actions">
+                        <a class="btn" href="{{ url_for('edit_watch', watch_id=watch['watch_id']) }}">Edit</a>
+
+                        <a class="btn" id="delete" href="{{ url_for('delete', watch_id=watch['watch_id']) }}">Delete</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="message">Nothing is on sale right now.</p>
+            {% endif %}
+        </div>
+
+        <div class="selling_history">
+            <h1>Selling History</h1>
+            {% if selling_history %}
+            <table>
+                <tr>
+                    <th>Title</th>
+                    <th>Buyer</th>
+                    <th>Cost</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Picture of Watch</th>
+                    <th>Date</th>
+                </tr>
+                {% for watch in selling_history %}
+                <tr>
+                    <td>{{ watch['title'] }}</td>
+                    <td>{{ watch['buyer_id'] }}</td>
+                    <td>{{ watch['price'] }}€</td>
+                    <td>{{ watch['description'] }}</td>
+                    <td>{{ watch['quantity'] }}</td>
+                    <td><img src="{{ url_for('serve_image_from_selling', id=watch['watch_id']) }}" alt="picture"
+                            width="128" height="128"></td>
+                    <td>{{ watch['date'] }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+            <p class="message">You have nothing sold.</p>
+            {% endif %}
+        </div>
+
+        <div class="reviews">
+            <h1>Reviews from Buyers</h1>
+            {% if reviews %}
+            <table>
+                <tr>
+                    <th>Buyer</th>
+                    <th>Review</th>
+                    <th>Date</th>
+                    <th>Remove</th>
+                </tr>
+                {% for review in reviews %}
+                <tr>
+                    <td>{{ review['buyer_id'] }}</td>
+                    <td>{{ review['review'] }}</td>
+                    <td>{{ review['date'] }}</td>
+                    <td><a class="btn" id="delete"
+                            href="{{ url_for('delete_review', review_id=review['review_id']) }}">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+            <p class="message">No reviews.</p>
+            {% endif %}
+        </div>
+
+        <p class="message">{{ message }}</p>
+    </main>
+</div>
+
+<footer>
+    <p>&copy; All rights reserved</p>
+</footer>
+
+{% endblock %}

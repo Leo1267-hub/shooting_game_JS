@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+<title>{{ title }}</title>
+{% endblock %}
+
+{% block main_content %}
+
+<div class="layout">
+    <aside class="sidebar">
+        <nav>
+            <a href="{{ url_for('admin') }}">Main</a>
+            <a href="{{ url_for('help_admin') }}">Questions</a>
+        </nav>
+    </aside>
+
+    <main>
+        <h1>Admin</h1>
+
+        <!-- code taken from here -->
+        <!-- https://flask.palletsprojects.com/en/stable/patterns/flashing/ -->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="alert">
+            {% for message in messages %}
+            <p class="message">{{ message }}!</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <div class="watch_list">
+            <h2>Watches to Review</h2>
+            {% if watches %}
+            <table>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Picture of Watch</th>
+                    <th>Material</th>
+                    <th>Seller</th>
+                    <th colspan="2">Actions</th>
+                </tr>
+                {% for watch in watches %}
+                <tr>
+                    <td>{{ watch['title'] }}</td>
+                    <td>{{ watch['description'] }}</td>
+                    <td><img src="{{ url_for('serve_image_to_check', id=watch['watch_id']) }}" alt="picture" width="128"
+                            height="128"></td>
+                    <td>{{ watch['material'] }}</td>
+                    <td>{{ watch['user_id'] }}</td>
+                    <td><a class="btn" href="{{ url_for('accept', watch_id=watch['watch_id']) }}">Accept</a></td>
+                    <td><a class="btn" id="delete" href="{{ url_for('reject', watch_id=watch['watch_id']) }}">Reject</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+            <p class="message">Nothing to check right now.✅</p>
+            {% endif %}
+        </div>
+    </main>
+</div>
+
+<footer>
+    <p>&copy; All rights reserved</p>
+</footer>
+
+{% endblock %}

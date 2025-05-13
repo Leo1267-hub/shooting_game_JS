@@ -1,0 +1,181 @@
+html {
+    --white: white;
+    --primary: #333;
+    --accent: #4169E1;
+    --hover: #0056b3;
+    --error: #e74c3c;
+    --background: #f8f8f8;
+}
+
+
+main {
+    background: var(--white);
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1,
+h2 {
+    text-align: center;
+    margin-bottom: 1em;
+    color: var(--primary);
+}
+
+.income {
+    text-align: center;
+    margin-bottom: 1.5em;
+}
+
+.income p {
+    font-size: 1.2em;
+    color: var(--primary);
+}
+
+.sell_watch_form {
+    background: var(--background);
+    padding: 1.5em;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2em;
+}
+
+.selling_history,
+.reviews {
+    margin-top: 2em;
+}
+
+
+
+.form_group {
+    margin-bottom: 1em;
+}
+
+.form_group .user_input {
+    width: 100%;
+    padding: 0.7em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.form_group .user_input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.form_group label {
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.error {
+    color: var(--error);
+    font-size: 0.9em;
+}
+
+.watch_grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5em;
+    margin-top: 1.5em;
+}
+
+.watch_card {
+    background: var(--white);
+    padding: 1em;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+}
+
+.watch_card:hover {
+    transform: scale(1.05);
+}
+
+.watch_card img {
+    width: 100%;
+    height: 10em;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.watch_details {
+    margin-top: 1em;
+}
+
+.watch_details h3 {
+    color: var(--primary);
+    margin-bottom: 0.5em;
+}
+
+.watch_actions {
+    display: flex;
+    gap: 0.5em;
+    margin-top: 1em;
+    justify-content: center;
+}
+
+.btn {
+    width: fit-content;
+    background: var(--accent);
+    color: var(--white);
+    border: none;
+    padding: 0.7em 1.5em;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: var(--hover);
+}
+
+#delete {
+    background: var(--error);
+}
+
+#delete:hover {
+    background: #c0392b;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5em;
+}
+
+table th,
+table td {
+    border: 1px solid #ddd;
+    padding: 0.8em;
+    text-align: center;
+}
+
+table th {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+table td {
+    background-color: var(--white);
+}
+
+.message {
+    text-align: center;
+    color: var(--primary);
+}
+
+@media (min-width: 768px) {
+    .watch_grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .watch_grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}

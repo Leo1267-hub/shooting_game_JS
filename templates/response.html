@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='response.css') }}">
+<title>{{ title }}</title>
+{% endblock %}
+
+{% block main_content %}
+
+<div class="layout">
+    <aside class="sidebar">
+        <nav>
+            <a href="{{ url_for('admin') }}">Main</a>
+            <a href="{{ url_for('help_admin') }}">Questions</a>
+        </nav>
+    </aside>
+
+    <main>
+        <h1>Response for {{ buyer_id }}</h1>
+
+        <div class="response_container">
+            <p><strong>Question:</strong> <i>{{ last_message }}</i></p>
+
+            <form action="" method="post">
+                {{ form.hidden_tag() }}
+                <div class="form_group">
+                    {{ form.message() }}
+                </div>
+                <div class="form_group">
+                    {{ form.submit() }}
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+
+<footer>
+    <p>&copy; All rights reserved</p>
+</footer>
+
+{% endblock %}

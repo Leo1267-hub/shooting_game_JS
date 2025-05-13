@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>{{ title }}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='basket.css') }}">
+{% endblock %}
+
+{% block main_content %}
+
+<div class="layout">
+    <aside class="sidebar">
+        <nav>
+            <a href="{{ url_for('main') }}">Catalog <i class='bx bxs-watch'></i></a>
+            <a href="{{ url_for('profile') }}">Profile <i class='bx bx-user-circle'></i></a>
+            <a href="{{ url_for('basket') }}">Basket <i class='bx bx-basket'></i></a>
+            <a href="{{ url_for('favourite') }}">Favourite <i class='bx bxs-heart'></i></a>
+            <a href="{{ url_for('compare') }}">Compare <i class='bx bx-git-compare'></i></a>
+            <a href="{{ url_for('help_buyer') }}">Help <i class='bx bx-help-circle'></i></a>
+            <a href="{{ url_for('blocked_sellers') }}">Blocked Sellers <i class='bx bx-block'></i></a>
+        </nav>
+    </aside>
+
+    <main>
+        <h1>Your Basket</h1>
+
+        {% if basket %}
+        <div class="tables">
+            <table class="basket_table">
+                <caption>Basket</caption>
+                <tr>
+                    <th>Watch</th>
+                    <th>Quantity</th>
+                    <th colspan="3">Actions</th>
+                </tr>
+                {% for watch_id in basket %}
+                <tr>
+                    <td>{{ names[watch_id] }}</td>
+                    <td>{{ basket[watch_id]['quantity'] }}</td>
+                    <td><a class="btn" id="remove" href="{{ url_for('remove_from_basket', watch_id=watch_id) }}">Remove
+                            one</a>
+                    </td>
+                    <td><a class="btn" id="add" href="{{ url_for('add_one_to_basket', watch_id=watch_id) }}">Add one</a>
+                    </td>
+                    <td><a class="btn" id="remove_all" href="{{ url_for('remove_all', watch_id=watch_id) }}">Remove
+                            all</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+
+
+
+            <table class="checkout_table">
+                <caption>Checkout</caption>
+                <tr>
+                    <th>Items</th>
+                    <th>Cost</th>
+                </tr>
+                {% for watch_id in basket %}
+                <tr>
+                    <td>{{ names[watch_id] }}</td>
+                    <td>{{ basket[watch_id]['price'] }}€</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <th>Total Cost</th>
+                    <td>{{ total_cost }}€</td>
+                </tr>
+            </table>
+        </div>
+
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
+            {{ form.submit() }}
+        </form>
+
+        <p class="error">{{ message_to_pay }}</p>
+
+        {% else %}
+        <p class="message">Your basket is empty🗑️</p>
+        {% endif %}
+        <!-- code taken from here -->
+        <!-- https://flask.palletsprojects.com/en/stable/patterns/flashing/ -->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="flash_messages">
+            {% for message in messages %}
+            <p class="error">{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+    </main>
+</div>
+
+<footer>
+    <p>&copy; All rights reserved</p>
+</footer>
+
+{% endblock %}

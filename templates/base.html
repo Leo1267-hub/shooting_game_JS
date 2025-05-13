@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static',filename='base.css')}}">
+    <link rel="icon" href="{{ url_for('static',filename='images/favicon.ico')}}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    {%block head%}{%endblock%}
+</head>
+
+<body>
+    <header>
+        {%if g.seller%}
+        <p>User id: {{g.seller}}</p>
+        <p><a href="{{url_for('logout')}}">logout</a></p>
+        {%elif g.buyer%}
+        <p>Hello, {{g.buyer}}</p>
+        <h1><a href="{{ url_for('main') }}">Watch Shop</a></h1>
+        <p><a href="{{url_for('logout')}}">logout</a></p>
+        {%elif g.admin%}
+        <p>User id: {{g.admin}}</p>
+        <p><a href="{{url_for('logout')}}">logout</a></p>
+        {%else%}
+        <p><a href="{{url_for('register')}}">Register</a></p>
+        <h1><a href="{{ url_for('main') }}">Watch Shop</a></h1>
+        <p><a href="{{url_for('login')}}">Login</a></p>
+        {%endif%}
+    </header>
+    {%block main_content%}
+
+    {%endblock%}
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='seller.css') }}">
+<title>{{ title }}</title>
+{% endblock %}
+
+{% block main_content %}
+<!-- enctype="multipart/form-data" part is taken from this website -->
+<!-- https://www.geeksforgeeks.org/what-does-enctypemultipart-form-data-mean-in-an-html-form/ -->
+<form class="sell_watch_form" action="" method="post" enctype="multipart/form-data">
+    <h1>Edit watch</h1>
+    {{form.hidden_tag()}}
+    <!--" value = " is taken from: -->
+    <!-- https://stackoverflow.com/questions/59689485/populate-a-form-using-flask-jinja2-template-input-text-fields-are-truncating -->
+    <div class="form_group">
+        {{form.title.label()}}
+        {{ form.title(value = name) }}
+        {% for error in form.title.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+    </div>
+
+    <div class="form_group">
+        {{form.price.label()}}
+        {{ form.price(value = price) }}
+        {% for error in form.price.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+    </div>
+
+    <div class="form_group">
+        {{form.size.label()}}
+        {{ form.size(value = size) }}
+        {% for error in form.size.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+    </div>
+
+    <div class="form_group">
+        {{form.material.label()}}
+        {{ form.material(value = material) }}
+        {% for error in form.material.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+    </div>
+
+    <div class="form_group">
+        {{form.weight.label()}}
+        {{ form.weight(value = weight) }}
+        {% for error in form.weight.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+    </div>
+    <!-- <div class="form_group">
+        {{ form.description(placeholder = description) }}
+        {% for error in form.description.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+    </div> -->
+    <div class="form_group">
+        <label for="description">Enter The Description</label>
+        <textarea class="user_input" id="description" maxlength="50" name="description">{{description}}</textarea>
+    </div>
+
+    <div class="form_group">
+        {{ form.quantity.label }}
+        {{ form.quantity(value = quantity) }}
+        {% for error in form.quantity.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+    </div>
+
+    <div class="form_group">
+        {{ form.file.label }}
+        {{ form.file() }}
+        {% for error in form.file.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+    </div>
+
+    <div class="form_group">
+        {{ form.submit() }}
+    </div>
+</form>
+
+
+{%endblock%}

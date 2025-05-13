@@ -1,0 +1,190 @@
+html {
+    --white: white;
+    --primary: #333;
+    --accent: #4169E1;
+    --hover: #0056b3;
+    --error: #e74c3c;
+    --background: #f8f8f8;
+}
+
+.layout {
+    display: block;
+    gap: 20px;
+    min-height: 100vh;
+    padding: 1em;
+    background: var(--background);
+}
+
+main {
+    background: var(--white);
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+main h1,
+main h2 {
+    text-align: center;
+    margin-bottom: 1em;
+    color: var(--primary);
+}
+
+.block_seller {
+    text-align: center;
+    margin-bottom: 1.5em;
+}
+
+.watch_grid,
+.review_grid {
+    display: grid;
+    grid-template-columns: repeat(1fr);
+    gap: 1.5em;
+    margin-top: 1.5em;
+}
+
+.watch_card {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 1em;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+    width: 100%;
+    height: fit-content;
+}
+
+
+.review_card {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 1em;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+    width: 100%;
+    height: fit-content;
+}
+
+.watch_card img {
+    width: 100%;
+    height: 10em;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.watch_card:hover {
+    transform: scale(1.05);
+}
+
+.watch_details,
+.review_details {
+    margin-top: 1em;
+}
+
+.watch_details h3 {
+    color: var(--primary);
+    margin-bottom: 0.5em;
+}
+
+.watch_actions {
+    display: flex;
+    gap: 0.5em;
+    margin-top: 1em;
+    justify-content: center;
+}
+
+.btn {
+    width: fit-content;
+    background: var(--accent);
+    color: var(--white);
+    border: none;
+    padding: 0.7em 1.5em;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: var(--hover);
+}
+
+.block {
+    background: var(--error);
+    width: fit-content;
+    color: var(--white);
+    border: none;
+    padding: 0.7em 1.5em;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.block:hover {
+    background: #c0392b;
+}
+
+.leave_review {
+    background: #f9f9f9;
+    padding: 1.5em;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 2em;
+}
+
+.form_group {
+    margin-bottom: 1em;
+}
+
+.user_input {
+    width: 100%;
+    padding: 0.7em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.user_input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.message {
+    text-align: center;
+    color: var(--primary);
+}
+
+.reviews h1 {
+    margin-top: 1em;
+}
+
+@media (min-width: 768px) {
+    .layout {
+        display: grid;
+        grid-template-columns: 12em auto;
+    }
+
+    .watch_grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .review_grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .layout {
+        grid-template-columns: 15em auto;
+    }
+
+    .watch_grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .review_grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
